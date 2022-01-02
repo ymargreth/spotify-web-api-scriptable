@@ -1,8 +1,8 @@
-# Spotify Web API JS [![Build Status](https://travis-ci.org/JMPerez/spotify-web-api-js.svg?branch=master)](https://travis-ci.org/JMPerez/spotify-web-api-js) [![Coverage Status](https://coveralls.io/repos/JMPerez/spotify-web-api-js/badge.svg)](https://coveralls.io/r/JMPerez/spotify-web-api-js) [![Greenkeeper badge](https://badges.greenkeeper.io/JMPerez/spotify-web-api-js.svg)](https://greenkeeper.io/) <a href="https://www.buymeacoffee.com/jmp"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=jmp&button_colour=BD5FFF&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" height="20"></a>
+# Spotify Web API for iOS Scriptable
 
-This is a lightweight wrapper for the [Spotify Web API](https://developer.spotify.com/web-api/) ([2.6kB gzipped + compressed](https://cost-of-modules.herokuapp.com/result?p=spotify-web-api-js)). It includes helper functions for **all Spotify's endpoints**, such as fetching metadata (search and look-up of albums, artists, tracks, playlists, new releases, podcasts) and user's information (follow users, artists and playlists, and saved tracks management).
+This is a lightweight wrapper for the [Spotify Web API](https://developer.spotify.com/web-api/) for the iOS app Scriptable. It includes helper functions for **all Spotify's endpoints**, such as fetching metadata (search and look-up of albums, artists, tracks, playlists, new releases, podcasts) and user's information (follow users, artists and playlists, and saved tracks management).
 
-It doesn't have any dependencies and supports callbacks and promises. It is intended to be run on a browser, but if you want to use Node.JS to make the requests, please check [spotify-web-api-node](https://github.com/thelinmichael/spotify-web-api-node).
+It doesn't have any dependencies and supports callbacks and promises. It is intended to be run in Scriptable. Please check [spotify-web-api-node](https://github.com/thelinmichael/spotify-web-api-node) for a Node.JS implementation and [spotify-web-api-js](https://github.com/JMPerez/spotify-web-api-js) for a browser implementation.
 
 A list of selected wrappers for different languages and environments is available on the Developer site's [Libraries page](https://developer.spotify.com/web-api/code-examples/).
 
@@ -85,24 +85,19 @@ The wrapper includes helper functions to do the following:
 
 ## Installation
 
-Install via node (since the requests are made using XMLHttpRequest, you will need a tool like Browserify to run this on a browser):
+Download [`src/spotify-web-api.js`](src/spotify-web-api.js) and save it to your Scriptable folder in iCloud Drive (or a subfolder).
 
-    $ npm install -S spotify-web-api-js
-
-Then, in your javascript file
+Then, in your Scriptable script
 
 ```js
-var Spotify = require('spotify-web-api-js');
+var Spotify = importModule('spotify-web-api.js');
 var s = new Spotify();
 //s.searchTracks()...
 ```
 
-or by making a copy of the `src/spotify-web-api.js` file
-
 ## Usage
 
-We recommend you have a look at the [documentation](https://jmperezperez.com/spotify-web-api-js/) to get an overview of the supported
-.
+We recommend you have a look at the [documentation](https://jmperezperez.com/spotify-web-api-js/) to get an overview of the supported methods.
 
 The wrapper supports callback functions, as well as [Promises](http://www.html5rocks.com/en/tutorials/es6/promises/) (you can also use [a polyfill](https://github.com/jakearchibald/es6-promise)), and Promises/A+ libraries such as [Q](https://github.com/kriskowal/q) and [when](https://github.com/cujojs/when).
 
@@ -146,8 +141,8 @@ spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
 );
 ```
 
-The promises also expose an `abort` method that aborts the XMLHttpRequest. This is useful to cancel
-requests that were made earlier and could be resolved out-of-sync:
+The promises also expose an `abort` method that _aborts_ the Request. This is useful to cancel
+requests that were made earlier and could be resolved out-of-sync (they are not aborted, but intercepted so the Promise isn't resolved):
 
 ```js
 var prev = null;
@@ -367,7 +362,7 @@ spotifyApi
 
 Get great code completion for this package using the integrated typescript typings. It includes the complete typings of the Spotify Web Api too, so you'll know both how to the navigate the API as well as the response you are getting.
 
-![Typings Example](https://raw.githubusercontent.com/JMPerez/spotify-web-api-js/master/typings-example.gif)
+![Typings Example](https://raw.githubusercontent.com/schl3ck/spotify-web-api-js/master/typings-example.gif)
 
 ### When bundling the library
 
