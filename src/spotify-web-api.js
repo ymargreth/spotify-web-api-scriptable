@@ -60,19 +60,24 @@ var SpotifyWebApi = (function () {
     for (var key in parameters) {
       if (parameters.hasOwnProperty(key)) {
         var value = parameters[key];
-        qs += encodeURIComponent(key) + '=' + encodeURIComponent(value) + '&';
+        if (qs.length > 0) {
+          qs += '&';
+        }
+        qs += encodeURIComponent(key) + '=' + encodeURIComponent(value);
       }
     }
     if (qs.length > 0) {
       // chop off last '&'
-      qs = qs.substring(0, qs.length - 1);
       url = url + '?' + qs;
     }
     return url;
   };
 
   var _performRequest = function (requestData, callback) {
-    var req = new XMLHttpRequest();
+    var req = new Request(_buildUrl(requestData.url, requestData.params));
+    var headers = {};
+    var cancelled = false;
+    var body = null;
 
     var promiseFunction = function (resolve, reject) {
       function success(data) {
@@ -85,6 +90,10 @@ var SpotifyWebApi = (function () {
       }
 
       function failure() {
+        var info = {
+          request: req,
+          body: body
+        };
         if (reject) {
           reject(req);
         }
@@ -94,43 +103,43 @@ var SpotifyWebApi = (function () {
       }
 
       var type = requestData.type || 'GET';
-      req.open(type, _buildUrl(requestData.url, requestData.params));
+      req.method = type;
       if (_accessToken) {
-        req.setRequestHeader('Authorization', 'Bearer ' + _accessToken);
+        headers.Authorization = 'Bearer ' + _accessToken;
       }
 
-      req.onreadystatechange = function () {
-        if (req.readyState === 4) {
-          var data = null;
-          try {
-            data = req.responseText ? JSON.parse(req.responseText) : '';
-          } catch (e) {
-            console.error(e);
-          }
-
-          if (req.status >= 200 && req.status < 300) {
-            success(data);
-          } else {
-            failure();
-          }
-        }
-      };
-
-      if (type === 'GET') {
-        req.send(null);
-      } else {
+      if (type !== 'GET') {
         var postData = null;
         if (requestData.postData) {
           if (requestData.contentType === 'image/jpeg') {
             postData = requestData.postData;
-            req.setRequestHeader('Content-Type', requestData.contentType);
+            headers['Content-Type'] = requestData.contentType;
           } else {
             postData = JSON.stringify(requestData.postData);
-            req.setRequestHeader('Content-Type', 'application/json');
+            headers['Content-Type'] = 'application/json';
           }
         }
-        req.send(postData);
+        req.body = postData;
       }
+
+      req.loadText().then((res) => {
+        if (cancelled) {
+          return;
+        }
+        body = res;
+        var data = null;
+        try {
+          data = res ? JSON.parse(res) : '';
+        } catch (e) {
+          console.error(e);
+        }
+
+        if (req.response.statusCode >= 200 && req.response.statusCode < 300) {
+          success(data);
+        } else {
+          failure();
+        }
+      });
     };
 
     if (callback) {
@@ -138,7 +147,7 @@ var SpotifyWebApi = (function () {
       return null;
     } else {
       return _promiseProvider(promiseFunction, function () {
-        req.abort();
+        cancelled = true;
       });
     }
   };
