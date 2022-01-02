@@ -362,14 +362,14 @@ spotifyApi
 
 Get great code completion for this package using the integrated typescript typings. It includes the complete typings of the Spotify Web Api too, so you'll know both how to the navigate the API as well as the response you are getting.
 
-![Typings Example](https://raw.githubusercontent.com/schl3ck/spotify-web-api-js/master/typings-example.gif)
+![Typings Example](https://raw.githubusercontent.com/schl3ck/spotify-web-api-scriptable/master/typings-example.gif)
 
 ### When bundling the library
 
 If you are bundling spotify-web-api-js using e.g. webpack you can include the library and the typings into a typescript file like this:
 
 ```typescript
-import SpotifyWebApi from 'spotify-web-api-js';
+import SpotifyWebApi from 'spotify-web-api-scriptable';
 
 let spotify = new SpotifyWebApi();
 ```
@@ -379,7 +379,7 @@ let spotify = new SpotifyWebApi();
 If you are using the library globally, for example including directly from index.html, include the typings in the top of your typescript file. Typescript will then assume the library is already present globally. Adjust the path to `node_modules`.
 
 ```typescript
-/// <reference path="../node_modules/spotify-web-api-js/src/typings/spotify-web-api.d.ts" />
+/// <reference path="../node_modules/spotify-web-api-scriptable/src/typings/spotify-web-api.d.ts" />
 
 let spotify = new SpotifyWebApi();
 ```
