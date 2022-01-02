@@ -66,7 +66,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMe(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.CurrentUsersProfileResponse>
     ): Promise<SpotifyApi.CurrentUsersProfileResponse>;
 
@@ -81,7 +81,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMySavedTracks(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.UsersSavedTracksResponse>
     ): Promise<SpotifyApi.UsersSavedTracksResponse>;
 
@@ -99,7 +99,7 @@ declare namespace SpotifyWebApi {
      */
     addToMySavedTracks(
       trackIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SaveTracksForUserResponse>
     ): Promise<SpotifyApi.SaveTracksForUserResponse>;
 
@@ -117,7 +117,7 @@ declare namespace SpotifyWebApi {
      */
     removeFromMySavedTracks(
       trackIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.RemoveUsersSavedTracksResponse>
     ): Promise<SpotifyApi.RemoveUsersSavedTracksResponse>;
 
@@ -135,7 +135,7 @@ declare namespace SpotifyWebApi {
      */
     containsMySavedTracks(
       trackIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.CheckUsersSavedTracksResponse>
     ): Promise<SpotifyApi.CheckUsersSavedTracksResponse>;
 
@@ -150,7 +150,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMySavedAlbums(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.UsersSavedAlbumsResponse>
     ): Promise<SpotifyApi.UsersSavedAlbumsResponse>;
 
@@ -168,7 +168,7 @@ declare namespace SpotifyWebApi {
      */
     addToMySavedAlbums(
       albumIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SaveAlbumsForUserResponse>
     ): Promise<SpotifyApi.SaveAlbumsForUserResponse>;
 
@@ -186,7 +186,7 @@ declare namespace SpotifyWebApi {
      */
     removeFromMySavedAlbums(
       albumIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.RemoveAlbumsForUserResponse>
     ): Promise<SpotifyApi.RemoveAlbumsForUserResponse>;
 
@@ -204,7 +204,7 @@ declare namespace SpotifyWebApi {
      */
     containsMySavedAlbums(
       albumIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.CheckUserSavedAlbumsResponse>
     ): Promise<SpotifyApi.CheckUserSavedAlbumsResponse>;
 
@@ -219,7 +219,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMyTopArtists(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.UsersTopArtistsResponse>
     ): Promise<SpotifyApi.UsersTopArtistsResponse>;
 
@@ -234,7 +234,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMyTopTracks(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.UsersTopTracksResponse>
     ): Promise<SpotifyApi.UsersTopTracksResponse>;
 
@@ -306,7 +306,7 @@ declare namespace SpotifyWebApi {
      */
     followPlaylist(
       playlistId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.FollowPlaylistResponse>
     ): Promise<SpotifyApi.FollowPlaylistResponse>;
 
@@ -425,7 +425,7 @@ declare namespace SpotifyWebApi {
      * artists objects. Not returned if a callback is given.
      */
     getFollowedArtists(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.UsersFollowedArtistsResponse>
     ): Promise<SpotifyApi.UsersFollowedArtistsResponse>;
 
@@ -443,7 +443,7 @@ declare namespace SpotifyWebApi {
      */
     getUser(
       userId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.UserProfileResponse>
     ): Promise<SpotifyApi.UserProfileResponse>;
 
@@ -462,7 +462,7 @@ declare namespace SpotifyWebApi {
      */
     getUserPlaylists(
       userId?: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ListOfUsersPlaylistsResponse>
     ): Promise<SpotifyApi.ListOfUsersPlaylistsResponse>;
 
@@ -480,7 +480,7 @@ declare namespace SpotifyWebApi {
      */
     getPlaylist(
       playlistId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SinglePlaylistResponse>
     ): Promise<SpotifyApi.SinglePlaylistResponse>;
 
@@ -498,7 +498,7 @@ declare namespace SpotifyWebApi {
      */
     getPlaylistTracks(
       playlistId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.PlaylistTrackResponse>
     ): Promise<SpotifyApi.PlaylistTrackResponse>;
 
@@ -532,7 +532,7 @@ declare namespace SpotifyWebApi {
      */
     createPlaylist(
       userId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.CreatePlaylistResponse>
     ): Promise<SpotifyApi.CreatePlaylistResponse>;
 
@@ -550,7 +550,7 @@ declare namespace SpotifyWebApi {
      */
     changePlaylistDetails(
       playlistId: string,
-      data: Object,
+      data: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ChangePlaylistDetailsResponse>
     ): Promise<SpotifyApi.ChangePlaylistDetailsResponse>;
 
@@ -570,7 +570,7 @@ declare namespace SpotifyWebApi {
     addTracksToPlaylist(
       playlistId: string,
       uris: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.AddTracksToPlaylistResponse>
     ): Promise<SpotifyApi.AddTracksToPlaylistResponse>;
 
@@ -611,7 +611,7 @@ declare namespace SpotifyWebApi {
       playlistId: string,
       rangeStart: number,
       insertBefore: number,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ReorderPlaylistTracksResponse>
     ): Promise<SpotifyApi.ReorderPlaylistTracksResponse>;
 
@@ -631,7 +631,7 @@ declare namespace SpotifyWebApi {
      */
     removeTracksFromPlaylist(
       playlistId: string,
-      uris: Object[],
+      uris: Record<PropertyKey, any>[],
       callback?: ResultsCallback<SpotifyApi.RemoveTracksFromPlaylistResponse>
     ): Promise<SpotifyApi.RemoveTracksFromPlaylistResponse>;
 
@@ -652,7 +652,7 @@ declare namespace SpotifyWebApi {
      */
     removeTracksFromPlaylistWithSnapshotId(
       playlistId: string,
-      uris: Object[],
+      uris: Record<PropertyKey, any>[],
       snapshotId: string,
       callback?: ResultsCallback<SpotifyApi.PlaylistSnapshotResponse>
     ): Promise<SpotifyApi.PlaylistSnapshotResponse>;
@@ -710,7 +710,7 @@ declare namespace SpotifyWebApi {
      */
     getAlbum(
       albumId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SingleAlbumResponse>
     ): Promise<SpotifyApi.SingleAlbumResponse>;
 
@@ -728,7 +728,7 @@ declare namespace SpotifyWebApi {
      */
     getAlbumTracks(
       albumId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.AlbumTracksResponse>
     ): Promise<SpotifyApi.AlbumTracksResponse>;
 
@@ -746,7 +746,7 @@ declare namespace SpotifyWebApi {
      */
     getAlbums(
       albumIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.MultipleAlbumsResponse>
     ): Promise<SpotifyApi.MultipleAlbumsResponse>;
 
@@ -764,7 +764,7 @@ declare namespace SpotifyWebApi {
      */
     getTrack(
       trackId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SingleTrackResponse>
     ): Promise<SpotifyApi.SingleTrackResponse>;
 
@@ -782,7 +782,7 @@ declare namespace SpotifyWebApi {
      */
     getTracks(
       trackIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.MultipleTracksResponse>
     ): Promise<SpotifyApi.MultipleTracksResponse>;
 
@@ -800,7 +800,7 @@ declare namespace SpotifyWebApi {
      */
     getArtist(
       artistId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SingleArtistResponse>
     ): Promise<SpotifyApi.SingleArtistResponse>;
 
@@ -818,7 +818,7 @@ declare namespace SpotifyWebApi {
      */
     getArtists(
       artistIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.MultipleArtistsResponse>
     ): Promise<SpotifyApi.MultipleArtistsResponse>;
 
@@ -836,7 +836,7 @@ declare namespace SpotifyWebApi {
      */
     getArtistAlbums(
       artistId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ArtistsAlbumsResponse>
     ): Promise<SpotifyApi.ArtistsAlbumsResponse>;
 
@@ -856,7 +856,7 @@ declare namespace SpotifyWebApi {
     getArtistTopTracks(
       artistId: string,
       countryId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ArtistsTopTracksResponse>
     ): Promise<SpotifyApi.ArtistsTopTracksResponse>;
 
@@ -874,7 +874,7 @@ declare namespace SpotifyWebApi {
      */
     getArtistRelatedArtists(
       artistId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ArtistsRelatedArtistsResponse>
     ): Promise<SpotifyApi.ArtistsRelatedArtistsResponse>;
 
@@ -889,7 +889,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getFeaturedPlaylists(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ListOfFeaturedPlaylistsResponse>
     ): Promise<SpotifyApi.ListOfFeaturedPlaylistsResponse>;
 
@@ -904,7 +904,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getNewReleases(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ListOfNewReleasesResponse>
     ): Promise<SpotifyApi.ListOfNewReleasesResponse>;
 
@@ -919,7 +919,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getCategories(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.MultipleCategoriesResponse>
     ): Promise<SpotifyApi.MultipleCategoriesResponse>;
 
@@ -936,7 +936,7 @@ declare namespace SpotifyWebApi {
      */
     getCategory(
       categoryId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SingleCategoryResponse>
     ): Promise<SpotifyApi.SingleCategoryResponse>;
 
@@ -953,7 +953,7 @@ declare namespace SpotifyWebApi {
      */
     getCategoryPlaylists(
       categoryId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.CategoryPlaylistsResponse>
     ): Promise<SpotifyApi.CategoryPlaylistsResponse>;
 
@@ -971,7 +971,7 @@ declare namespace SpotifyWebApi {
      */
     getShow(
       showId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SingleShowResponse>
     ): Promise<SpotifyApi.SingleShowResponse>;
 
@@ -989,7 +989,7 @@ declare namespace SpotifyWebApi {
      */
     getShows(
       showIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.MultipleShowsResponse>
     ): Promise<SpotifyApi.MultipleShowsResponse>;
 
@@ -1004,7 +1004,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMySavedShows(
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ListOfUsersShowsResponse>
     ): Promise<SpotifyApi.ListOfUsersShowsResponse>;
 
@@ -1022,7 +1022,7 @@ declare namespace SpotifyWebApi {
      */
     addToMySavedShows(
       showIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SaveShowsForUserResponse>
     ): Promise<SpotifyApi.SaveShowsForUserResponse>;
 
@@ -1040,7 +1040,7 @@ declare namespace SpotifyWebApi {
      */
     removeFromMySavedShows(
       showIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.RemoveUsersSavedShowsResponse>
     ): Promise<SpotifyApi.RemoveUsersSavedShowsResponse>;
 
@@ -1058,7 +1058,7 @@ declare namespace SpotifyWebApi {
      */
     containsMySavedShows(
       showIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.CheckUsersSavedShowsResponse>
     ): Promise<SpotifyApi.CheckUsersSavedShowsResponse>;
 
@@ -1076,7 +1076,7 @@ declare namespace SpotifyWebApi {
      */
     getShowEpisodes(
       showId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.ShowEpisodesResponse>
     ): Promise<SpotifyApi.ShowEpisodesResponse>;
 
@@ -1094,7 +1094,7 @@ declare namespace SpotifyWebApi {
      */
     getEpisode(
       episodeId: string,
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.SingleEpisodeResponse>
     ): Promise<SpotifyApi.SingleEpisodeResponse>;
 
@@ -1112,7 +1112,7 @@ declare namespace SpotifyWebApi {
      */
     getEpisodes(
       episodeIds: string[],
-      options?: Object,
+      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.MultipleEpisodesResponse>
     ): Promise<SpotifyApi.MultipleEpisodesResponse>;
 
@@ -1606,7 +1606,7 @@ declare namespace SpotifyWebApi {
      * @throws {Error} If the implementation being set doesn't conform with Promises/A+
      * @return {void}
      */
-    setPromiseImplementation(promiseImplementation: Object): void;
+    setPromiseImplementation(promiseImplementation: Record<PropertyKey, any>): void;
   }
 }
 

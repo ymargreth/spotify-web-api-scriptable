@@ -124,7 +124,7 @@ declare namespace SpotifyApi {
     context_uri?: string;
     position_ms?: number;
     uris?: string[];
-    offset?: Object;
+    offset?: Record<PropertyKey, any>;
   }
 
   interface PlayParameterObject {
