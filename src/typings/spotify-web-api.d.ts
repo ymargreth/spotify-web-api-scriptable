@@ -1606,7 +1606,9 @@ declare namespace SpotifyWebApi {
      * @throws {Error} If the implementation being set doesn't conform with Promises/A+
      * @return {void}
      */
-    setPromiseImplementation(promiseImplementation: Record<PropertyKey, any>): void;
+    setPromiseImplementation(
+      promiseImplementation: Record<PropertyKey, any>
+    ): void;
   }
 }
 
