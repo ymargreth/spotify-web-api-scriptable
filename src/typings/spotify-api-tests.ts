@@ -9898,6 +9898,7 @@ const featuredPlaylists: SpotifyApi.ListOfFeaturedPlaylistsResponse = {
     items: [
       {
         collaborative: false,
+        description: null,
         external_urls: {
           spotify:
             'http://open.spotify.com/user/spotify/playlist/16BpjqQV1Ey0HeDueNDSYz'
@@ -9936,6 +9937,7 @@ const featuredPlaylists: SpotifyApi.ListOfFeaturedPlaylistsResponse = {
       },
       {
         collaborative: false,
+        description: null,
         external_urls: {
           spotify:
             'http://open.spotify.com/user/spotify/playlist/7nUikuZL4MgIXS43cMpQZE'
@@ -12055,6 +12057,7 @@ const categoryPlaylists: SpotifyApi.CategoryPlaylistsResponse = {
     items: [
       {
         collaborative: false,
+        description: null,
         external_urls: {
           spotify:
             'http://open.spotify.com/user/spotifybrazilian/playlist/6U9RHRz1G477YpMNeLy9uI'
@@ -12093,6 +12096,7 @@ const categoryPlaylists: SpotifyApi.CategoryPlaylistsResponse = {
       },
       {
         collaborative: false,
+        description: null,
         external_urls: {
           spotify:
             'http://open.spotify.com/user/spotifybrazilian/playlist/4k7EZPI3uKMz4aRRrLVfen'
@@ -13711,6 +13715,7 @@ const searchPlaylists: SpotifyApi.PlaylistSearchResponse = {
     items: [
       {
         collaborative: false,
+        description: null,
         external_urls: {
           spotify:
             'http://open.spotify.com/user/twistoffame/playlist/4atqr0nDMUxQFLd09yhk9w'
@@ -13761,6 +13766,7 @@ const searchPlaylists: SpotifyApi.PlaylistSearchResponse = {
       },
       {
         collaborative: false,
+        description: null,
         external_urls: {
           spotify:
             'http://open.spotify.com/user/1174077483/playlist/3fAKyVYIkAiinuipRUGJHj'
@@ -14814,6 +14820,7 @@ const usersPlaylists: SpotifyApi.ListOfUsersPlaylistsResponse = {
   items: [
     {
       collaborative: false,
+      description: null,
       external_urls: {
         spotify:
           'http://open.spotify.com/user/wizzler/playlist/6yRf9SJ1YiAhNAu7UCwgXQ'
@@ -14852,6 +14859,7 @@ const usersPlaylists: SpotifyApi.ListOfUsersPlaylistsResponse = {
     },
     {
       collaborative: false,
+      description: null,
       external_urls: {
         spotify:
           'http://open.spotify.com/user/wizzler/playlist/3FJd21jWvCjGCLx7eKrext'
@@ -14907,6 +14915,7 @@ const currentUsersPlaylists: SpotifyApi.ListOfUsersPlaylistsResponse = {
   items: [
     {
       collaborative: false,
+      description: null,
       external_urls: {
         spotify:
           'http://open.spotify.com/user/wizzler/playlist/6yRf9SJ1YiAhNAu7UCwgXQ'
@@ -14945,6 +14954,7 @@ const currentUsersPlaylists: SpotifyApi.ListOfUsersPlaylistsResponse = {
     },
     {
       collaborative: false,
+      description: null,
       external_urls: {
         spotify:
           'http://open.spotify.com/user/wizzler/playlist/3FJd21jWvCjGCLx7eKrext'
