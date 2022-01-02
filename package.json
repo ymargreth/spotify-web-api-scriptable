@@ -14,6 +14,8 @@
     "url": "git://github.com/JMPerez/spotify-web-api-js"
   },
   "devDependencies": {
+    "@types/scriptable-ios": "^1.6.4",
+    "@scriptable-ios/eslint-config": "^1.6.4",
     "coveralls": "^3.1.0",
     "doxdox": "^3.0.0",
     "eslint": "^7.15.0",
