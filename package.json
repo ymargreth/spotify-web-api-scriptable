@@ -16,7 +16,7 @@
   "devDependencies": {
     "@scriptable-ios/eslint-config": "^1.6.4",
     "@types/scriptable-ios": "^1.6.4",
-    "@types/spotify-api": "^0.0.12",
+    "@types/spotify-api": "^0.0.13",
     "coveralls": "^3.1.0",
     "doxdox": "^3.0.0",
     "eslint": "^7.15.0",
