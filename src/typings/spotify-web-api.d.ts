@@ -8,6 +8,61 @@
 
 export default SpotifyWebApi;
 
+type Alphabet =
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'F'
+  | 'G'
+  | 'H'
+  | 'I'
+  | 'J'
+  | 'K'
+  | 'L'
+  | 'M'
+  | 'N'
+  | 'O'
+  | 'P'
+  | 'Q'
+  | 'R'
+  | 'S'
+  | 'T'
+  | 'U'
+  | 'V'
+  | 'W'
+  | 'X'
+  | 'Y'
+  | 'Z';
+
+type Permutation<T, C = T> = [T] extends [never]
+  ? []
+  : C extends infer U
+  ? [U, ...Permutation<Exclude<T, U>>]
+  : [];
+
+type ConcatAndUnion<
+  T extends string[],
+  Acc extends string,
+  Seperator extends string
+> = T extends [infer A, ...infer Rest]
+  ? A extends string
+    ? Rest extends string[]
+      ? ConcatAndUnion<
+          Rest,
+          ([Acc] extends [never] ? A : `${Acc}${Seperator}${A}`) | Acc,
+          Seperator
+        >
+      : never
+    : never
+  : Acc;
+
+type AllCombinations<
+  T extends string[],
+  Seperator extends string
+> = ConcatAndUnion<T, never, Seperator>;
+
 declare namespace SpotifyWebApi {
   interface VoidResultsCallback {
     (error: ErrorObject): any;
@@ -29,6 +84,39 @@ declare namespace SpotifyWebApi {
     response: string;
     statusText: string;
   }
+
+  /**
+   * Paging options
+   */
+  interface PagingOptions {
+    /** default `20` */
+    limit?: number;
+    /** default `0` */
+    offset?: number;
+  }
+
+  interface Market {
+    /**
+     * Specifies the country code for which to get the item
+     */
+    market?: `${Alphabet}${Alphabet}`;
+  }
+  interface Country {
+    /**
+     * Specifies the country code for which to get the item
+     */
+    country?: `${Alphabet}${Alphabet}`;
+  }
+
+  interface Locale {
+    /**
+     * Specifies the language for the returned items in the format `aa_AA` where
+     * `a` and `A` can be any letter with the same case
+     */
+    locale?: string;
+  }
+
+  type PlaybackRepeatState = 'off' | 'track' | 'context';
 
   /**
    * Describes the static side of SpotifyApi.
@@ -60,13 +148,11 @@ declare namespace SpotifyWebApi {
      * See [Get Current User's Profile](https://developer.spotify.com/web-api/get-current-users-profile/) on
      * the Spotify Developer site for more information about the endpoint.
      *
-     * @param {Object} options A JSON object with options that can be passed
      * @param {function(Object,Object)} callback An optional callback that receives 2 parameters. The first
      * one is the error object (null if no error), and the second is the value if the request succeeded.
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMe(
-      options?: Record<PropertyKey, any>,
       callback?: ResultsCallback<SpotifyApi.CurrentUsersProfileResponse>
     ): Promise<SpotifyApi.CurrentUsersProfileResponse>;
 
@@ -81,7 +167,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMySavedTracks(
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & Market,
       callback?: ResultsCallback<SpotifyApi.UsersSavedTracksResponse>
     ): Promise<SpotifyApi.UsersSavedTracksResponse>;
 
@@ -150,7 +236,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMySavedAlbums(
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & Market,
       callback?: ResultsCallback<SpotifyApi.UsersSavedAlbumsResponse>
     ): Promise<SpotifyApi.UsersSavedAlbumsResponse>;
 
@@ -219,7 +305,9 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMyTopArtists(
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & {
+        time_range: 'short_term' | 'medium_term' | 'long_term';
+      },
       callback?: ResultsCallback<SpotifyApi.UsersTopArtistsResponse>
     ): Promise<SpotifyApi.UsersTopArtistsResponse>;
 
@@ -234,7 +322,9 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMyTopTracks(
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & {
+        time_range: 'short_term' | 'medium_term' | 'long_term';
+      },
       callback?: ResultsCallback<SpotifyApi.UsersTopTracksResponse>
     ): Promise<SpotifyApi.UsersTopTracksResponse>;
 
@@ -425,7 +515,7 @@ declare namespace SpotifyWebApi {
      * artists objects. Not returned if a callback is given.
      */
     getFollowedArtists(
-      options?: Record<PropertyKey, any>,
+      options?: { /** artist ID */ after: string; limit: number },
       callback?: ResultsCallback<SpotifyApi.UsersFollowedArtistsResponse>
     ): Promise<SpotifyApi.UsersFollowedArtistsResponse>;
 
@@ -457,12 +547,12 @@ declare namespace SpotifyWebApi {
      * one is the error object (null if no error), and the second is the value if the request succeeded.
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
-     getUserPlaylists(
-      options?: Object,
+    getUserPlaylists(
+      options?: PagingOptions,
       callback?: ResultsCallback<SpotifyApi.ListOfUsersPlaylistsResponse>
     ): Promise<SpotifyApi.ListOfUsersPlaylistsResponse>;
 
-        /**
+    /**
      * Fetches a list of the current user's playlists.
      * See [Get a List of a User's Playlists](https://developer.spotify.com/web-api/get-list-users-playlists/) on
      * the Spotify Developer site for more information about the endpoint.
@@ -477,7 +567,7 @@ declare namespace SpotifyWebApi {
      */
     getUserPlaylists(
       userId: string,
-      options?: Object,
+      options?: PagingOptions,
       callback?: ResultsCallback<SpotifyApi.ListOfUsersPlaylistsResponse>
     ): Promise<SpotifyApi.ListOfUsersPlaylistsResponse>;
 
@@ -495,7 +585,10 @@ declare namespace SpotifyWebApi {
      */
     getPlaylist(
       playlistId: string,
-      options?: Record<PropertyKey, any>,
+      options?: {
+        additional_types: 'track' | 'episode';
+        fields: string;
+      } & Market,
       callback?: ResultsCallback<SpotifyApi.SinglePlaylistResponse>
     ): Promise<SpotifyApi.SinglePlaylistResponse>;
 
@@ -513,7 +606,11 @@ declare namespace SpotifyWebApi {
      */
     getPlaylistTracks(
       playlistId: string,
-      options?: Record<PropertyKey, any>,
+      options?: {
+        additional_types: 'track' | 'episode';
+        fields: string;
+      } & Market &
+        PagingOptions,
       callback?: ResultsCallback<SpotifyApi.PlaylistTrackResponse>
     ): Promise<SpotifyApi.PlaylistTrackResponse>;
 
@@ -530,8 +627,8 @@ declare namespace SpotifyWebApi {
      */
     getPlaylistCoverImage(
       playlistId: string,
-      callback?: ResultsCallback<SpotifyApi.PlaylistCoverImageResponse>
-    ): Promise<SpotifyApi.PlaylistCoverImageResponse>;
+      callback?: ResultsCallback<SpotifyApi.ImageObject[]>
+    ): Promise<SpotifyApi.ImageObject[]>;
 
     /**
      * Creates a playlist and stores it in the current user's library.
@@ -725,7 +822,7 @@ declare namespace SpotifyWebApi {
      */
     getAlbum(
       albumId: string,
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.SingleAlbumResponse>
     ): Promise<SpotifyApi.SingleAlbumResponse>;
 
@@ -743,7 +840,7 @@ declare namespace SpotifyWebApi {
      */
     getAlbumTracks(
       albumId: string,
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & Market,
       callback?: ResultsCallback<SpotifyApi.AlbumTracksResponse>
     ): Promise<SpotifyApi.AlbumTracksResponse>;
 
@@ -761,7 +858,7 @@ declare namespace SpotifyWebApi {
      */
     getAlbums(
       albumIds: string[],
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.MultipleAlbumsResponse>
     ): Promise<SpotifyApi.MultipleAlbumsResponse>;
 
@@ -779,7 +876,7 @@ declare namespace SpotifyWebApi {
      */
     getTrack(
       trackId: string,
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.SingleTrackResponse>
     ): Promise<SpotifyApi.SingleTrackResponse>;
 
@@ -797,7 +894,7 @@ declare namespace SpotifyWebApi {
      */
     getTracks(
       trackIds: string[],
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.MultipleTracksResponse>
     ): Promise<SpotifyApi.MultipleTracksResponse>;
 
@@ -851,7 +948,13 @@ declare namespace SpotifyWebApi {
      */
     getArtistAlbums(
       artistId: string,
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions &
+        Market & {
+          include_groups: AllCombinations<
+            Permutation<'album' | 'single' | 'appears_on' | 'compilation'>,
+            ','
+          >;
+        },
       callback?: ResultsCallback<SpotifyApi.ArtistsAlbumsResponse>
     ): Promise<SpotifyApi.ArtistsAlbumsResponse>;
 
@@ -871,7 +974,7 @@ declare namespace SpotifyWebApi {
     getArtistTopTracks(
       artistId: string,
       countryId: string,
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.ArtistsTopTracksResponse>
     ): Promise<SpotifyApi.ArtistsTopTracksResponse>;
 
@@ -904,7 +1007,11 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getFeaturedPlaylists(
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions &
+        Country &
+        Locale & {
+          timestamp: string;
+        },
       callback?: ResultsCallback<SpotifyApi.ListOfFeaturedPlaylistsResponse>
     ): Promise<SpotifyApi.ListOfFeaturedPlaylistsResponse>;
 
@@ -919,7 +1026,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getNewReleases(
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & Country,
       callback?: ResultsCallback<SpotifyApi.ListOfNewReleasesResponse>
     ): Promise<SpotifyApi.ListOfNewReleasesResponse>;
 
@@ -934,7 +1041,7 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getCategories(
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & Country & Locale,
       callback?: ResultsCallback<SpotifyApi.MultipleCategoriesResponse>
     ): Promise<SpotifyApi.MultipleCategoriesResponse>;
 
@@ -951,7 +1058,7 @@ declare namespace SpotifyWebApi {
      */
     getCategory(
       categoryId: string,
-      options?: Record<PropertyKey, any>,
+      options?: Country & Locale,
       callback?: ResultsCallback<SpotifyApi.SingleCategoryResponse>
     ): Promise<SpotifyApi.SingleCategoryResponse>;
 
@@ -968,7 +1075,7 @@ declare namespace SpotifyWebApi {
      */
     getCategoryPlaylists(
       categoryId: string,
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & Country,
       callback?: ResultsCallback<SpotifyApi.CategoryPlaylistsResponse>
     ): Promise<SpotifyApi.CategoryPlaylistsResponse>;
 
@@ -986,7 +1093,7 @@ declare namespace SpotifyWebApi {
      */
     getShow(
       showId: string,
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.SingleShowResponse>
     ): Promise<SpotifyApi.SingleShowResponse>;
 
@@ -1004,7 +1111,7 @@ declare namespace SpotifyWebApi {
      */
     getShows(
       showIds: string[],
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.MultipleShowsResponse>
     ): Promise<SpotifyApi.MultipleShowsResponse>;
 
@@ -1019,9 +1126,11 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     getMySavedShows(
-      options?: Record<PropertyKey, any>,
-      callback?: ResultsCallback<SpotifyApi.ListOfUsersShowsResponse>
-    ): Promise<SpotifyApi.ListOfUsersShowsResponse>;
+      options?: PagingOptions,
+      callback?: ResultsCallback<
+        SpotifyApi.PagingObject<SpotifyApi.SavedShowObject>
+      >
+    ): Promise<SpotifyApi.PagingObject<SpotifyApi.SavedShowObject>>;
 
     /**
      * Adds a list of shows to the current user's saved shows.
@@ -1038,8 +1147,8 @@ declare namespace SpotifyWebApi {
     addToMySavedShows(
       showIds: string[],
       options?: Record<PropertyKey, any>,
-      callback?: ResultsCallback<SpotifyApi.SaveShowsForUserResponse>
-    ): Promise<SpotifyApi.SaveShowsForUserResponse>;
+      callback?: ResultsCallback<SpotifyApi.VoidResponse>
+    ): Promise<SpotifyApi.VoidResponse>;
 
     /**
      * Remove a list of shows from the current user's saved shows.
@@ -1056,8 +1165,8 @@ declare namespace SpotifyWebApi {
     removeFromMySavedShows(
       showIds: string[],
       options?: Record<PropertyKey, any>,
-      callback?: ResultsCallback<SpotifyApi.RemoveUsersSavedShowsResponse>
-    ): Promise<SpotifyApi.RemoveUsersSavedShowsResponse>;
+      callback?: ResultsCallback<SpotifyApi.VoidResponse>
+    ): Promise<SpotifyApi.VoidResponse>;
 
     /**
      * Checks if the current user's saved shows contains a certain list of shows.
@@ -1074,8 +1183,8 @@ declare namespace SpotifyWebApi {
     containsMySavedShows(
       showIds: string[],
       options?: Record<PropertyKey, any>,
-      callback?: ResultsCallback<SpotifyApi.CheckUsersSavedShowsResponse>
-    ): Promise<SpotifyApi.CheckUsersSavedShowsResponse>;
+      callback?: ResultsCallback<boolean[]>
+    ): Promise<boolean[]>;
 
     /**
      * Fetches the episodes of a show from the Spotify catalog.
@@ -1091,7 +1200,7 @@ declare namespace SpotifyWebApi {
      */
     getShowEpisodes(
       showId: string,
-      options?: Record<PropertyKey, any>,
+      options?: PagingOptions & Market,
       callback?: ResultsCallback<SpotifyApi.ShowEpisodesResponse>
     ): Promise<SpotifyApi.ShowEpisodesResponse>;
 
@@ -1109,7 +1218,7 @@ declare namespace SpotifyWebApi {
      */
     getEpisode(
       episodeId: string,
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.SingleEpisodeResponse>
     ): Promise<SpotifyApi.SingleEpisodeResponse>;
 
@@ -1127,7 +1236,7 @@ declare namespace SpotifyWebApi {
      */
     getEpisodes(
       episodeIds: string[],
-      options?: Record<PropertyKey, any>,
+      options?: Market,
       callback?: ResultsCallback<SpotifyApi.MultipleEpisodesResponse>
     ): Promise<SpotifyApi.MultipleEpisodesResponse>;
 
@@ -1257,7 +1366,7 @@ declare namespace SpotifyWebApi {
 
     /**
      * Get audio feature information for a single track identified by its unique Spotify ID.
-     * See [Get Audio Analysis for a Track](https://developer.spotify.com/documentation/web-api/https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/) on
+     * See [Get Audio Analysis for a Track](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/) on
      * the Spotify Developer site for more information about the endpoint.
      * @param {string} trackId The id of the track. If you know the Spotify URI it is easy
      * @param {function(Object,Object)} callback An optional callback that receives 2 parameters. The first
@@ -1419,13 +1528,10 @@ declare namespace SpotifyWebApi {
      * one is the error object (null if no error), and the second is the value if the request succeeded.
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
-    queue(
-      uri: string,
-      options?: SpotifyApi.QueueParameterObject
-    ): Promise<void>;
+    queue(uri: string, options?: { device_id?: string }): Promise<void>;
     getMyCurrentPlayingTrack(
       uri: string,
-      options: SpotifyApi.QueueParameterObject,
+      options: { device_id?: string },
       callback: VoidResultsCallback
     ): void;
     queue(uri: string, callback: VoidResultsCallback): void;
@@ -1538,18 +1644,15 @@ declare namespace SpotifyWebApi {
      * @return {Object} Null if a callback is provided, a `Promise` object otherwise
      */
     setRepeat(
-      state: SpotifyApi.PlaybackRepeatState,
+      state: PlaybackRepeatState,
       options?: SpotifyApi.DeviceSpecificParameterObject
     ): Promise<void>;
     setRepeat(
-      state: SpotifyApi.PlaybackRepeatState,
+      state: PlaybackRepeatState,
       options: SpotifyApi.DeviceSpecificParameterObject,
       callback: VoidResultsCallback
     ): void;
-    setRepeat(
-      state: SpotifyApi.PlaybackRepeatState,
-      callback: VoidResultsCallback
-    ): void;
+    setRepeat(state: PlaybackRepeatState, callback: VoidResultsCallback): void;
 
     /**
      * Set the volume for the user’s current playback device.
