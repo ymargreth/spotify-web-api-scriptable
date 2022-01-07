@@ -99,13 +99,13 @@ declare namespace SpotifyWebApi {
     /**
      * Specifies the country code for which to get the item
      */
-    market?: `${Alphabet}${Alphabet}`;
+    market?: `${Alphabet}${Alphabet}` | "from_token";
   }
   interface Country {
     /**
      * Specifies the country code for which to get the item
      */
-    country?: `${Alphabet}${Alphabet}`;
+    country?: `${Alphabet}${Alphabet}` | "from_token";
   }
 
   interface Locale {
