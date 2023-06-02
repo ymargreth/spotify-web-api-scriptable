@@ -99,13 +99,13 @@ declare namespace SpotifyWebApi {
     /**
      * Specifies the country code for which to get the item
      */
-    market?: `${Alphabet}${Alphabet}` | "from_token";
+    market?: `${Alphabet}${Alphabet}` | 'from_token';
   }
   interface Country {
     /**
      * Specifies the country code for which to get the item
      */
-    country?: `${Alphabet}${Alphabet}` | "from_token";
+    country?: `${Alphabet}${Alphabet}` | 'from_token';
   }
 
   interface Locale {
@@ -515,7 +515,7 @@ declare namespace SpotifyWebApi {
      * artists objects. Not returned if a callback is given.
      */
     getFollowedArtists(
-      options?: { /** artist ID */ after: string; limit: number },
+      options?: { /** artist ID */ after?: string; limit?: number },
       callback?: ResultsCallback<SpotifyApi.UsersFollowedArtistsResponse>
     ): Promise<SpotifyApi.UsersFollowedArtistsResponse>;
 
@@ -586,8 +586,8 @@ declare namespace SpotifyWebApi {
     getPlaylist(
       playlistId: string,
       options?: {
-        additional_types: 'track' | 'episode';
-        fields: string;
+        additional_types?: 'track' | 'episode';
+        fields?: string;
       } & Market,
       callback?: ResultsCallback<SpotifyApi.SinglePlaylistResponse>
     ): Promise<SpotifyApi.SinglePlaylistResponse>;
@@ -607,8 +607,8 @@ declare namespace SpotifyWebApi {
     getPlaylistTracks(
       playlistId: string,
       options?: {
-        additional_types: 'track' | 'episode';
-        fields: string;
+        additional_types?: 'track' | 'episode';
+        fields?: string;
       } & Market &
         PagingOptions,
       callback?: ResultsCallback<SpotifyApi.PlaylistTrackResponse>
