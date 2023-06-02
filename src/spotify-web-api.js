@@ -122,7 +122,7 @@ var SpotifyWebApi = (function () {
         req.body = postData;
       }
 
-      req.loadText().then((res) => {
+      req.loadString().then((res) => {
         if (cancelled) {
           return;
         }
