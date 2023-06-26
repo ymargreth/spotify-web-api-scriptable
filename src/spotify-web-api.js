@@ -28,8 +28,8 @@ var SpotifyWebApi = (function () {
       );
       returnedPromise = deferred.promise;
     } else {
-      if (window.Promise) {
-        returnedPromise = new window.Promise(promiseFunction);
+      if (Promise) {
+        returnedPromise = new Promise(promiseFunction);
       }
     }
 
@@ -121,6 +121,7 @@ var SpotifyWebApi = (function () {
         }
         req.body = postData;
       }
+      req.headers = headers;
 
       req.loadString().then((res) => {
         if (cancelled) {
@@ -2083,6 +2084,21 @@ var SpotifyWebApi = (function () {
       console.error(e);
     }
     if (valid) {
+      if (!PromiseImplementation.defer) {
+        PromiseImplementation.defer = function () {
+          var resolve = null;
+          var reject = null;
+          var promise = new PromiseImplementation((res, rej) => {
+            resolve = res;
+            reject = rej;
+          });
+          return {
+            promise,
+            resolve,
+            reject
+          };
+        };
+      }
       _promiseImplementation = PromiseImplementation;
     } else {
       throw new Error('Unsupported implementation of Promises/A+');
