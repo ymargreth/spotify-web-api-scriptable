@@ -8,6 +8,7 @@ var SpotifyWebApi = (function () {
   var _baseUri = 'https://api.spotify.com/v1';
   var _accessToken = null;
   var _promiseImplementation = null;
+  var _requestClass = Request;
 
   var WrapPromiseWithAbort = function (promise, onAbort) {
     promise.abort = onAbort;
@@ -74,7 +75,7 @@ var SpotifyWebApi = (function () {
   };
 
   var _performRequest = function (requestData, callback) {
-    var req = new Request(_buildUrl(requestData.url, requestData.params));
+    var req = new _requestClass(_buildUrl(requestData.url, requestData.params));
     var headers = {};
     var cancelled = false;
     var body = null;
@@ -2103,6 +2104,17 @@ var SpotifyWebApi = (function () {
     } else {
       throw new Error('Unsupported implementation of Promises/A+');
     }
+  };
+
+  /**
+   * Sets the request class to use. Mainly this exists because the internal classes are not the
+   * same between modules.
+   *
+   * @param {Request} requestClass A Promises/A+ valid implementation
+   * @return {void}
+   */
+  Constr.prototype.setRequestClass = function (requestClass) {
+    _requestClass = requestClass;
   };
 
   return Constr;
