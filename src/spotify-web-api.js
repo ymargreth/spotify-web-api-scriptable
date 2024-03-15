@@ -859,7 +859,7 @@ var SpotifyWebApi = (function () {
         uris: uris
       }
     };
-    return _checkParamsAndPerformRequest(requestData, options, callback, true);
+    return _checkParamsAndPerformRequest(requestData, options, callback);
   };
 
   /**
