@@ -644,7 +644,12 @@ declare namespace SpotifyWebApi {
      */
     createPlaylist(
       userId: string,
-      options?: Record<PropertyKey, any>,
+      options?: {
+        name: string;
+        public?: boolean;
+        collaborative?: boolean;
+        description?: string;
+      },
       callback?: ResultsCallback<SpotifyApi.CreatePlaylistResponse>
     ): Promise<SpotifyApi.CreatePlaylistResponse>;
 
@@ -662,7 +667,13 @@ declare namespace SpotifyWebApi {
      */
     changePlaylistDetails(
       playlistId: string,
-      data: Record<PropertyKey, any>,
+      data: {
+        name?: string;
+        public?: boolean;
+        /** Can only be set on private playlists */
+        collaborative?: boolean;
+        description?: string;
+      },
       callback?: ResultsCallback<SpotifyApi.ChangePlaylistDetailsResponse>
     ): Promise<SpotifyApi.ChangePlaylistDetailsResponse>;
 
@@ -682,7 +693,7 @@ declare namespace SpotifyWebApi {
     addTracksToPlaylist(
       playlistId: string,
       uris: string[],
-      options?: Record<PropertyKey, any>,
+      options?: { position?: number },
       callback?: ResultsCallback<SpotifyApi.AddTracksToPlaylistResponse>
     ): Promise<SpotifyApi.AddTracksToPlaylistResponse>;
 
@@ -723,7 +734,7 @@ declare namespace SpotifyWebApi {
       playlistId: string,
       rangeStart: number,
       insertBefore: number,
-      options?: Record<PropertyKey, any>,
+      options?: { range_length?: number; snapshot_id?: string },
       callback?: ResultsCallback<SpotifyApi.ReorderPlaylistTracksResponse>
     ): Promise<SpotifyApi.ReorderPlaylistTracksResponse>;
 
@@ -1727,6 +1738,15 @@ declare namespace SpotifyWebApi {
     setPromiseImplementation(
       promiseImplementation: Record<PropertyKey, any>
     ): void;
+
+    /**
+     * Sets the request class to use. Mainly this exists because the internal classes are not the
+     * same between modules.
+     *
+     * @param {typeof Request} requestClass A Promises/A+ valid implementation
+     * @return {void}
+     */
+    setRequestClass(requestClass: typeof Request): void;
   }
 }
 
