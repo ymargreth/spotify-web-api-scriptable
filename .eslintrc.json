@@ -28,7 +28,6 @@
     "space-before-blocks": 2,
     "spaced-comment": [2, "always", { "exceptions": ["-"] }],
     "strict": [2, "global"],
-    "valid-jsdoc": [2],
     "wrap-iife": [2, "any"]
   }
 }

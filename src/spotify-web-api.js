@@ -2110,7 +2110,7 @@ var SpotifyWebApi = (function () {
    * Sets the request class to use. Mainly this exists because the internal classes are not the
    * same between modules.
    *
-   * @param {Request} requestClass A Promises/A+ valid implementation
+   * @param {typeof Request} requestClass A Promises/A+ valid implementation
    * @return {void}
    */
   Constr.prototype.setRequestClass = function (requestClass) {
